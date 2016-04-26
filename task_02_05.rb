@@ -8,30 +8,27 @@ def enter_data
   m_date = gets().chomp.split(".")
   m_date.map! {|item| item = item.to_i }
 
-  month_days = {1=>31, 2=>28, 3=>31, 4=>30, 5=>31, 6=>30, 7=>31, 8=>31, 9=>30, 10=>31, 11=>30, 12=>31}
+  month_days = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 
   # Определение високосного года
-  month_days[2] = 29 if (m_date[2]%4 == 0 && m_date[2]%100 != 0) || m_date[2]%400 == 0
+  month_days[1] = 29 if (m_date[2]%4 == 0 && m_date[2]%100 != 0) || m_date[2]%400 == 0
   
-# p (month_days) # Temp
-# p (m_date)     # Temp
-    
   return month_days, m_date
 end 
 
-loc_var = enter_data
+entered = enter_data
 
-month_days = loc_var[0]
-m_date = loc_var[1]
+month_days = entered[0]
+m_date = entered[1]
 
 
 # Проверка корректности ввода даты
-if m_date[1] > 12 || m_date[0] > month_days[m_date[1]] then
+if m_date[1] > 12 || m_date[0] > month_days[m_date[1]-1] 
   loop do
     puts ("?? Вы ввели некорректную дату. Повторите ввод.")
-    loc_var = enter_data
-    month_days = loc_var[0]
-    m_date = loc_var[1]
+    entered = enter_data
+    month_days = entered[0]
+    m_date = entered[1]
     break unless m_date[1] > 12 || m_date[0] > month_days[m_date[1]] 
   end
   

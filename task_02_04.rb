@@ -4,15 +4,9 @@
 # A, E, I, O, U, and sometimes Y. See https://simple.wikipedia.org/wiki/Vowel
 
 vowel = ["a","e","i","o","u","y"]
-eng_alf = ("a".."z").to_a
+# eng_alf = ("a".."z").to_a Избыток. Использовать диапазон прямо в each. Использовать each_with_index, чтобы передавать индекс.
 vowel_hash = {}
-i = 1
 
-eng_alf.each do |letter|
-  if vowel.include?(letter) then
-    vowel_hash[letter] = i
-  end
-  i += 1
-end
+("a".."z").each_with_index {|letter, ind| vowel_hash[letter] = ind if vowel.include?(letter) }
 
 print ("==> Result\n#{vowel_hash}\n")
